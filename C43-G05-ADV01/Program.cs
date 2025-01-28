@@ -1,159 +1,79 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace C43_G05_ADV01
 {
-    //#region Question 1
-
-    
-    //    #region Requirement 1: Define the Range<T> class
-    //    public class Range<T> where T : IComparable<T>
-    //    {
-    //        #region Requirement 2: Fields and Constructor
-    //        private T _min;
-    //        private T _max;
-
-    //        public Range(T min, T max)
-    //        {
-    //            if (min.CompareTo(max) > 0)
-    //            {
-    //                throw new ArgumentException("Minimum value cannot be greater than maximum value.");
-    //            }
-
-    //            _min = min;
-    //            _max = max;
-    //        }
-    //        #endregion
-
-    //        #region Requirement 3: IsInRange(T value)
-    //        public bool IsInRange(T value)
-    //        {
-    //            return value.CompareTo(_min) >= 0 && value.CompareTo(_max) <= 0;
-    //        }
-    //        #endregion
-
-    //        #region Requirement 4: Length()
-    //        public T Length()
-    //        {
-    //            dynamic min = _min;
-    //            dynamic max = _max;
-    //            return max - min;
-    //        }
-    //        #endregion
-
-    //        #region Requirement 5: Properties for Min and Max
-    //        public T Min => _min;
-    //        public T Max => _max;
-    //        #endregion
-    //    }
-    //#endregion
-
-
-    //#endregion
-
-    
-   
-   
-    internal class Program
+    #region Q-04
+    class FixedSizeList<T>
     {
-        //#region Question 2
-        //public static void ReverseArrayList<T>(List<T> list)
-        //{
-        //    int left = 0;
-        //    int right = list.Count - 1;
+       
+        private T[] _items;
+        private int _currentIndex;
 
-        //    while (left < right)
-        //    {
-        //        T temp = list[left];
-        //        list[left] = list[right];
-        //        list[right] = temp;
-
-        //        left++;
-        //        right--;
-        //    }
-        //}
-        //#endregion
-
-        #region Question 3
-        public static List<int> GetEvenNumbers(List<int> numbers)
+        public FixedSizeList(int capacity)
         {
-            List<int> evenNumbers = new List<int>();
-
-            foreach (int number in numbers)
+            if (capacity <= 0)
             {
-                if (number % 2 == 0)
-                {
-                    evenNumbers.Add(number);
-                }
+                throw new ArgumentException("Capacity must be greater than zero.");
             }
 
-            return evenNumbers;
+            _items = new T[capacity];
+            _currentIndex = 0;
+        }
+
+        public void Add(T item)
+        {
+            if (_currentIndex >= _items.Length)
+            {
+                throw new InvalidOperationException("The list is full. Cannot add more items.");
+            }
+
+            _items[_currentIndex] = item;
+            _currentIndex++;
+        }
+
+        public T Get(int index)
+        {
+            if (index < 0 || index >= _currentIndex)
+            {
+                throw new IndexOutOfRangeException("Invalid index.");
+            }
+
+            return _items[index];
+        }
+
+        public int Count
+        {
+            get { return _currentIndex; }
         }
         #endregion
+    }
+    internal class Program
+    {
+
         static void Main(string[] args)
         {
-
-            //Range<int> range = new Range<int>(5, 15);
-
-            //Console.WriteLine($"Min: {range.Min}, Max: {range.Max}");
-
-            //int value = 10;
-            //Console.WriteLine($"Is {value} in range? {range.IsInRange(value)}");
-
-            //Console.WriteLine($"Length of range: {range.Length()}");
-
-
-            //List<int> numbers = new List<int> { 1, 2, 3, 4, 5 };
-
-            //Console.WriteLine("Original List (Int):");
-            //for (int i = 0; i < numbers.Count; i++)
-            //{
-            //    Console.Write(numbers[i] + " ");
-            //}
-
-            //ReverseArrayList(numbers);
-
-            //Console.WriteLine("\nReversed List (Int):");
-            //for (int i = 0; i < numbers.Count; i++)
-            //{
-            //    Console.Write(numbers[i] + " ");
-            //}
-
-            //Console.WriteLine(); 
-
-            //List<string> words = new List<string> { "Hello", "World", "C#", "Generics" };
-
-            //Console.WriteLine("Original List (String):");
-            //for (int i = 0; i < words.Count; i++)
-            //{
-            //    Console.Write(words[i] + " ");
-            //}
-
-            //ReverseArrayList(words);
-
-            //Console.WriteLine("\nReversed List (String):");
-            //for (int i = 0; i < words.Count; i++)
-            //{
-            //    Console.Write(words[i] + " ");
-            //}
-
-
-            List<int> numbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-
-            Console.WriteLine("Original List:");
-            foreach (int number in numbers)
+            try
             {
-                Console.Write(number + " ");
+                #region Q-04
+                FixedSizeList<int> list = new FixedSizeList<int>(3);
+
+                list.Add(1);
+                list.Add(2);
+                list.Add(3);
+
+
+                Console.WriteLine("Item at index 0: " + list.Get(0));
+                Console.WriteLine("Item at index 1: " + list.Get(1));
+                Console.WriteLine("Item at index 2: " + list.Get(2));
+
+
+                Console.WriteLine("Current list size: " + list.Count);
+                #endregion
             }
-
-            List<int> evenNumbers = GetEvenNumbers(numbers);
-
-            Console.WriteLine("\nEven Numbers List:");
-            foreach (int even in evenNumbers)
+            catch (Exception ex)
             {
-                Console.Write(even + " ");
+                Console.WriteLine("Error: " + ex.Message);
             }
-
 
         }
     }
