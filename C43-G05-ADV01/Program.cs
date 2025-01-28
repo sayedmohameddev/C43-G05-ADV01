@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace C43_G05_ADV01
 {
@@ -45,22 +46,81 @@ namespace C43_G05_ADV01
             public T Max => _max;
             #endregion
         }
-        #endregion
-    
+    #endregion
+
 
     #endregion
+
+    
+   
+   
     internal class Program
     {
+        #region Question 2
+        public static void ReverseArrayList<T>(List<T> list)
+        {
+            int left = 0;
+            int right = list.Count - 1;
+
+            while (left < right)
+            {
+                T temp = list[left];
+                list[left] = list[right];
+                list[right] = temp;
+
+                left++;
+                right--;
+            }
+        }
+        #endregion
         static void Main(string[] args)
         {
-            Range<int> range = new Range<int>(5, 15);
 
-            Console.WriteLine($"Min: {range.Min}, Max: {range.Max}");
+            //Range<int> range = new Range<int>(5, 15);
 
-            int value = 10;
-            Console.WriteLine($"Is {value} in range? {range.IsInRange(value)}");
+            //Console.WriteLine($"Min: {range.Min}, Max: {range.Max}");
 
-            Console.WriteLine($"Length of range: {range.Length()}");
+            //int value = 10;
+            //Console.WriteLine($"Is {value} in range? {range.IsInRange(value)}");
+
+            //Console.WriteLine($"Length of range: {range.Length()}");
+
+
+            List<int> numbers = new List<int> { 1, 2, 3, 4, 5 };
+
+            Console.WriteLine("Original List (Int):");
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                Console.Write(numbers[i] + " ");
+            }
+
+            ReverseArrayList(numbers);
+
+            Console.WriteLine("\nReversed List (Int):");
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                Console.Write(numbers[i] + " ");
+            }
+
+            Console.WriteLine(); 
+
+            List<string> words = new List<string> { "Hello", "World", "C#", "Generics" };
+
+            Console.WriteLine("Original List (String):");
+            for (int i = 0; i < words.Count; i++)
+            {
+                Console.Write(words[i] + " ");
+            }
+
+            ReverseArrayList(words);
+
+            Console.WriteLine("\nReversed List (String):");
+            for (int i = 0; i < words.Count; i++)
+            {
+                Console.Write(words[i] + " ");
+            }
+
+
         }
     }
 }
